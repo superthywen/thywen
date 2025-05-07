@@ -26,7 +26,7 @@
 
         #overlay {
             color: white;
-            font-size: 22.5px; /* 25% smaller */
+            font-size: 22.5px;
             font-family: 'Teko', sans-serif;
             position: absolute;
             z-index: 10;
@@ -37,15 +37,16 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1.25); /* Scaling up by 25% */
+            transform: translate(-50%, -50%) scale(1.25); /* Scaled 25% larger */
             max-width: 2400px;
             max-height: 1350px;
             object-fit: contain;
             z-index: 5;
-            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
         }
 
-        /* Cat ears styles */
         #catEars {
             position: absolute;
             top: 20px;
@@ -54,71 +55,52 @@
             height: 30px;
             background-color: #333;
             border-radius: 50%;
-            background-image: url('cat-ear-icon.png'); /* Replace with your cat ear image */
+            background-image: url('cat-ear-icon.png');
             background-size: cover;
             transition: transform 0.3s ease, cursor 0.3s ease;
             cursor: pointer;
         }
 
-        /* Hover effect (ears become bigger) */
         #catEars:hover {
-            transform: scale(2); /* 2x bigger on hover */
+            transform: scale(2);
             cursor: pointer;
         }
 
-        /* Cursor indicating click */
         #catEars:active {
             cursor: pointer;
         }
 
-        /* Bee flying animation */
         .bee {
             position: absolute;
             width: 50px;
             height: 50px;
             background-color: yellow;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Simple bee shape */
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             animation: fly 8s linear infinite;
         }
 
-        /* Flying animation */
         @keyframes fly {
-            0% {
-                top: 10%;
-                left: 10%;
-            }
-            25% {
-                top: 30%;
-                left: 50%;
-            }
-            50% {
-                top: 50%;
-                left: 90%;
-            }
-            75% {
-                top: 70%;
-                left: 50%;
-            }
-            100% {
-                top: 90%;
-                left: 10%;
-            }
+            0% { top: 10%; left: 10%; }
+            25% { top: 30%; left: 50%; }
+            50% { top: 50%; left: 90%; }
+            75% { top: 70%; left: 50%; }
+            100% { top: 90%; left: 10%; }
         }
 
-        /* Clock styles */
         #clock {
             color: white;
-            font-size: 60px; /* Medium size relative to video */
+            font-size: 60px;
             font-family: 'Teko', sans-serif;
             position: absolute;
-            bottom: 20px; /* Position below the video */
+            bottom: 20px;
             z-index: 10;
             text-align: center;
-            display: none; /* Hidden initially */
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
 
         #date {
-            font-size: 30px; /* Smaller font for the date */
+            font-size: 30px;
             margin-top: 10px;
         }
 
@@ -132,13 +114,8 @@
         Your browser does not support the video tag.
     </video>
 
-    <!-- Cat ears icon -->
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
-
-    <!-- Bee flying animation -->
     <div class="bee" id="bee"></div>
-
-    <!-- Clock and Date -->
     <div id="clock">
         <div id="date"></div>
     </div>
@@ -149,8 +126,7 @@
         const bee = document.getElementById('bee');
         const clock = document.getElementById('clock');
         const dateElement = document.getElementById('date');
-        
-        // Function to update the clock
+
         function updateDate() {
             const now = new Date();
             const date = now.toLocaleDateString('en-GB', {
@@ -159,19 +135,20 @@
                 month: 'long',
                 day: 'numeric'
             });
-
             dateElement.textContent = date;
         }
 
-        // Wait for the user to click the page to start the video, hide the bee, and show the clock
         document.body.addEventListener('click', function() {
             overlay.style.display = 'none';
-            video.style.display = 'block';
-            video.play();
-            bee.style.display = 'none'; // Hide the bee immediately after click
-            clock.style.display = 'block'; // Show the clock
-            updateDate(); // Update the date immediately
-            setInterval(updateDate, 1000); // Update the date every second
+            bee.style.display = 'none';
+
+            setTimeout(function() {
+                video.style.opacity = '1';
+                clock.style.opacity = '1';
+                video.play();
+                updateDate();
+                setInterval(updateDate, 1000);
+            }, 1000);
         });
     </script>
 </body>
