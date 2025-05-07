@@ -111,14 +111,6 @@
             font-size: 30px;
             margin-top: 10px;
         }
-
-        /* Animation for overlay text dots */
-        @keyframes dotAnimation {
-            0% { content: "Press click to enter."; }
-            33% { content: "Press click to enter."; }
-            66% { content: "Press click to enter.."; }
-            100% { content: "Press click to enter..."; }
-        }
     </style>
 </head>
 <body>
@@ -149,7 +141,11 @@
         bee.classList.add('bee');
         document.body.appendChild(bee);
 
-        let dotInterval;
+        let dotCount = 0;
+        const dotInterval = setInterval(function() {
+            overlay.textContent = `Press click to enter${'.'.repeat(dotCount)}`;
+            dotCount = (dotCount + 1) % 4; // loop dots from 1 to 3
+        }, 380); // Update every 0.38 seconds
 
         function updateDate() {
             const now = new Date();
@@ -160,14 +156,6 @@
                 day: 'numeric'
             });
             dateElement.textContent = date;
-        }
-
-        function animateOverlayText() {
-            let dotCount = 0;
-            dotInterval = setInterval(function() {
-                overlay.textContent = `Press click to enter${'.'.repeat(dotCount)}`;
-                dotCount = (dotCount + 1) % 4;
-            }, 380); // Update every 0.38 seconds
         }
 
         document.body.addEventListener('click', function() {
@@ -194,7 +182,7 @@
                     video.style.opacity = '0'; // Make video invisible
                     document.body.style.backgroundColor = 'black'; // Full black background
                     clearInterval(dotInterval); // Stop dot animation
-                }, 22000); // 22000 ms = 22 seconds
+                }, 28000); // 22 seconds
 
             }, 1000);
         });
@@ -202,8 +190,6 @@
         // Ensure video doesn't loop
         video.loop = false;
 
-        // Start dot animation on page load
-        animateOverlayText();
     </script>
 </body>
 </html>
