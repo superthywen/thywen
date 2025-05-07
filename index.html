@@ -44,7 +44,7 @@
             object-fit: contain;
             z-index: 5;
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 0.6s ease;
             pointer-events: none;
         }
 
@@ -93,7 +93,7 @@
             text-align: center;
             z-index: 10;
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 0.6s ease;
         }
 
         #clock {
@@ -105,7 +105,7 @@
             z-index: 10;
             text-align: center;
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 0.6s ease;
         }
 
         #date {
@@ -175,6 +175,19 @@
             }, 380);
         }
 
+        function endVideoAndShowContent() {
+            content.style.display = 'block';
+            content.style.opacity = '0';
+            setTimeout(() => {
+                content.style.opacity = '1';
+            }, 10);
+            clock.style.display = 'block';
+            video.pause();
+            video.style.opacity = '0';
+            document.body.style.backgroundColor = 'black';
+            clearInterval(dotInterval);
+        }
+
         document.body.addEventListener('click', function () {
             overlay.style.display = 'none';
             bee.style.display = 'none';
@@ -186,23 +199,14 @@
                 video.play();
                 updateDate();
                 setInterval(updateDate, 1000);
-
-                setTimeout(() => {
-                    content.style.display = 'block';
-                    content.style.opacity = '0';
-                    setTimeout(() => {
-                        content.style.opacity = '1';
-                    }, 10);
-                    clock.style.display = 'block';
-                    video.pause();
-                    video.style.opacity = '0';
-                    document.body.style.backgroundColor = 'black';
-                    clearInterval(dotInterval);
-                }, 28000);
             }, 1000);
+
+            // fallback in case video doesn't trigger 'ended'
+            setTimeout(endVideoAndShowContent, 28000);
         });
 
         video.loop = false;
+        video.addEventListener('ended', endVideoAndShowContent);
         animateOverlayText();
     </script>
 </body>
