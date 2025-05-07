@@ -66,25 +66,19 @@
             cursor: pointer;
         }
 
-        #catEars:active {
-            cursor: pointer;
-        }
-
-        .bee {
+        #content {
+            display: none;
+            color: white;
+            font-size: 20px;
+            font-family: 'Teko', sans-serif;
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background-color: yellow;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            animation: fly 8s linear infinite;
+            text-align: center;
+            z-index: 10;
         }
 
-        @keyframes fly {
-            0% { top: 10%; left: 10%; }
-            25% { top: 30%; left: 50%; }
-            50% { top: 50%; left: 90%; }
-            75% { top: 70%; left: 50%; }
-            100% { top: 90%; left: 10%; }
+        #content a {
+            color: #FF6347;
+            text-decoration: none;
         }
 
         #clock {
@@ -104,28 +98,6 @@
             margin-top: 10px;
         }
 
-        .quote {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        .content a {
-            display: block;
-            color: #00BFFF;
-            text-decoration: none;
-            font-size: 20px;
-            margin: 20px 0;
-        }
-
-        .content a:hover {
-            text-decoration: underline;
-        }
-
-        .content {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -137,25 +109,24 @@
     </video>
 
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
-    <div class="bee" id="bee"></div>
     <div id="clock">
         <div id="date"></div>
     </div>
 
-    <div class="content" id="contentPage">
-        <div class="quote">Believe in something</div>
-        <a href="https://www.youtube.com/watch?v=best-song-link" target="_blank">Best Song</a>
-        <a href="https://www.imdb.com/title/best-tv-show-link" target="_blank">Best TV Show</a>
-        <a href="https://www.anime-website.com/best-anime-link" target="_blank">Best Anime</a>
+    <!-- Content that appears after the video ends -->
+    <div id="content">
+        <h1>Believe in Something</h1>
+        <p><strong>Best Song:</strong> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">The Best Song</a></p>
+        <p><strong>Best TV Show:</strong> The Office</p>
+        <p><strong>Best Anime:</strong> Attack on Titan</p>
     </div>
 
     <script>
         const video = document.getElementById('myVideo');
         const overlay = document.getElementById('overlay');
-        const bee = document.getElementById('bee');
         const clock = document.getElementById('clock');
         const dateElement = document.getElementById('date');
-        const contentPage = document.getElementById('contentPage');
+        const content = document.getElementById('content');
 
         function updateDate() {
             const now = new Date();
@@ -170,7 +141,6 @@
 
         document.body.addEventListener('click', function() {
             overlay.style.display = 'none';
-            bee.style.display = 'none';
 
             setTimeout(function() {
                 video.volume = 1.0; // Max volume
@@ -182,11 +152,12 @@
             }, 1000);
         });
 
+        // Trigger when video ends
         video.onended = function() {
-            // Show the content page after the video ends
+            content.style.display = 'block';
             setTimeout(function() {
-                contentPage.style.display = 'block';
-            }, 1000); // Slight delay to make it more fluid
+                clock.style.display = 'none'; // Hide the clock after video ends
+            }, 1000); // Delay before hiding the clock, you can adjust it if needed
         };
     </script>
 </body>
