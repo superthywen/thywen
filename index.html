@@ -37,7 +37,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Scaled 25% larger */
+            transform: translate(-50%, -50%);
             max-width: 2400px;
             max-height: 1350px;
             object-fit: contain;
@@ -143,6 +143,7 @@
             bee.style.display = 'none';
 
             setTimeout(function() {
+                video.volume = 1.0; // Max volume
                 video.style.opacity = '1';
                 clock.style.opacity = '1';
                 video.play();
