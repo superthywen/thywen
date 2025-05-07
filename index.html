@@ -8,7 +8,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: white;
+            background-color: black; /* Set the background to black */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,17 +16,30 @@
             overflow: hidden;
             position: relative;
         }
+        #overlay {
+            color: white;
+            font-size: 30px;
+            font-family: Arial, sans-serif;
+            position: absolute;
+            z-index: 10;
+        }
         video {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100vw; /* Full width */
-            height: 100vh; /* Full height */
-            object-fit: cover; /* Keep the video covering the screen */
+            width: 75vw; /* Decrease video size by 25% */
+            height: 75vh; /* Decrease video size by 25% */
+            object-fit: cover;
+            z-index: 5;
+            display: none; /* Hide the video initially */
         }
     </style>
 </head>
 <body>
+    <!-- Overlay with the text -->
+    <div id="overlay">Press any button to play</div>
+
+    <!-- Video element -->
     <video id="myVideo" loop>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -34,12 +47,16 @@
 
     <script>
         const video = document.getElementById('myVideo');
+        const overlay = document.getElementById('overlay');
 
-        // Wait for the user to click the page to start playing the video
+        // Wait for the user to click the page to start the video
         document.body.addEventListener('click', function() {
-            if (video.paused) {
-                video.play(); // Play the video
-            }
+            // Hide the overlay
+            overlay.style.display = 'none';
+            
+            // Show and play the video
+            video.style.display = 'block';
+            video.play();
         });
     </script>
 </body>
