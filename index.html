@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>thywen</title> <!-- Title for the tab -->
+    <title>thywen</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: black; /* Black background */
+            background-color: black;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,6 +16,7 @@
             overflow: hidden;
             position: relative;
         }
+
         #overlay {
             color: white;
             font-size: 30px;
@@ -23,28 +24,56 @@
             position: absolute;
             z-index: 10;
         }
+
         video {
             position: absolute;
-            top: 60%;
-            left: 60%;
-            transform: translate(-50%, -50%); /* Center the video */
-            max-width: 3500px; /* Increased by 25% from 1920px */
-            max-height: 1968.5px; /* Increased by 25% from 1080px */
-            object-fit: contain; /* Preserve the aspect ratio */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 2400px;
+            max-height: 1350px;
+            object-fit: contain;
             z-index: 5;
-            display: none; /* Hide the video initially */
+            display: none;
+        }
+
+        /* Cat ears styles */
+        #catEars {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: #333;
+            border-radius: 50%;
+            background-image: url('cat-ear-icon.png'); /* Replace with your cat ear image */
+            background-size: cover;
+            transition: transform 0.3s ease, cursor 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Hover effect (ears become bigger) */
+        #catEars:hover {
+            transform: scale(2); /* 2x bigger on hover */
+            cursor: pointer;
+        }
+
+        /* Cursor indicating click */
+        #catEars:active {
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Overlay with the text -->
-    <div id="overlay">Press any button to play</div>
 
-    <!-- Video element -->
+    <div id="overlay">Press any button to play</div>
     <video id="myVideo" loop>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
+
+    <!-- Cat ears icon -->
+    <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
 
     <script>
         const video = document.getElementById('myVideo');
@@ -52,10 +81,7 @@
 
         // Wait for the user to click the page to start the video
         document.body.addEventListener('click', function() {
-            // Hide the overlay
             overlay.style.display = 'none';
-            
-            // Show and play the video
             video.style.display = 'block';
             video.play();
         });
