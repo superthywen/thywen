@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>thywen</title>
     
-    <!-- Google Fonts: Teko -->
+    <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
-    
+
     <style>
         body {
             margin: 0;
@@ -21,14 +21,16 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            cursor: pointer;
         }
 
         #overlay {
             color: white;
-            font-size: 22.5px; /* 25% smaller than previous 30px */
+            font-size: 22.5px; /* 25% smaller */
             font-family: 'Teko', sans-serif;
             position: absolute;
             z-index: 10;
+            text-align: center;
         }
 
         video {
@@ -68,12 +70,46 @@
         #catEars:active {
             cursor: pointer;
         }
+
+        /* Bee flying animation */
+        .bee {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%); /* Simple bee shape */
+            animation: fly 8s linear infinite;
+        }
+
+        /* Flying animation */
+        @keyframes fly {
+            0% {
+                top: 10%;
+                left: 10%;
+            }
+            25% {
+                top: 30%;
+                left: 50%;
+            }
+            50% {
+                top: 50%;
+                left: 90%;
+            }
+            75% {
+                top: 70%;
+                left: 50%;
+            }
+            100% {
+                top: 90%;
+                left: 10%;
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <div id="overlay">Press click to enter</div>
-    
     <video id="myVideo" loop>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
@@ -82,15 +118,20 @@
     <!-- Cat ears icon -->
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
 
+    <!-- Bee flying animation -->
+    <div class="bee" id="bee"></div>
+
     <script>
         const video = document.getElementById('myVideo');
         const overlay = document.getElementById('overlay');
-
-        // Wait for the user to click the page to start the video
+        const bee = document.getElementById('bee');
+        
+        // Wait for the user to click the page to start the video and hide the bee
         document.body.addEventListener('click', function() {
             overlay.style.display = 'none';
             video.style.display = 'block';
             video.play();
+            bee.style.display = 'none'; // Hide the bee immediately after click
         });
     </script>
 </body>
