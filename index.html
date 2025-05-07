@@ -19,7 +19,7 @@
 
         #overlay {
             color: white;
-            font-size: 22.5px; /* 25% smaller than 30px */
+            font-size: 22.5px; /* 25% smaller text */
             font-family: Arial, sans-serif;
             position: absolute;
             z-index: 10;
@@ -29,9 +29,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            max-width: 2400px;
-            max-height: 1350px;
+            transform: translate(-50%, -50%) scale(1.25); /* 25% bigger */
+            max-width: none;
+            max-height: none;
             object-fit: contain;
             z-index: 5;
             display: none;
@@ -46,7 +46,7 @@
             height: 30px;
             background-color: #333;
             border-radius: 50%;
-            background-image: url('cat-ear-icon.png'); /* Replace with your cat ear image */
+            background-image: url('cat-ear-icon.png'); /* Replace with your GitHub-hosted image URL */
             background-size: cover;
             transition: transform 0.3s ease, cursor 0.3s ease;
             cursor: pointer;
@@ -54,11 +54,10 @@
 
         /* Hover effect (ears become bigger) */
         #catEars:hover {
-            transform: scale(2); /* 2x bigger on hover */
+            transform: scale(2);
             cursor: pointer;
         }
 
-        /* Cursor indicating click */
         #catEars:active {
             cursor: pointer;
         }
@@ -72,15 +71,13 @@
         Your browser does not support the video tag.
     </video>
 
-    <!-- Cat ears icon -->
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
 
     <script>
         const video = document.getElementById('myVideo');
         const overlay = document.getElementById('overlay');
 
-        // Wait for the user to click the page to start the video
-        document.body.addEventListener('click', function() {
+        document.body.addEventListener('click', function () {
             overlay.style.display = 'none';
             video.style.display = 'block';
             video.play();
