@@ -121,6 +121,42 @@
             66% { content: "Press click to enter.."; }
             100% { content: "Press click to enter..."; }
         }
+
+        /* Styles for mobile devices */
+        @media only screen and (max-width: 768px) {
+            video {
+                display: none;
+            }
+
+            #overlay {
+                display: none;
+            }
+
+            #content {
+                display: block;
+                color: white;
+                font-size: 30px;
+                font-family: 'Coming Soon', sans-serif;
+                position: absolute;
+                text-align: center;
+                z-index: 10;
+                opacity: 1;
+                transition: opacity 1.5s ease;
+            }
+
+            #pcWarning {
+                display: block;
+                color: white;
+                font-size: 24px;
+                font-family: 'Teko', sans-serif;
+                position: absolute;
+                z-index: 10;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
     </style>
 </head>
 <body>
@@ -141,6 +177,11 @@
     <!-- Content that appears after waiting for a certain time -->
     <div id="content">
         <h1>Believe in Something👑</h1>
+    </div>
+
+    <!-- Mobile warning message -->
+    <div id="pcWarning">
+        Website working only on PC
     </div>
 
     <script>
