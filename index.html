@@ -104,6 +104,28 @@
             margin-top: 10px;
         }
 
+        .quote {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .content a {
+            display: block;
+            color: #00BFFF;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -120,12 +142,20 @@
         <div id="date"></div>
     </div>
 
+    <div class="content" id="contentPage">
+        <div class="quote">Believe in something</div>
+        <a href="https://www.youtube.com/watch?v=best-song-link" target="_blank">Best Song</a>
+        <a href="https://www.imdb.com/title/best-tv-show-link" target="_blank">Best TV Show</a>
+        <a href="https://www.anime-website.com/best-anime-link" target="_blank">Best Anime</a>
+    </div>
+
     <script>
         const video = document.getElementById('myVideo');
         const overlay = document.getElementById('overlay');
         const bee = document.getElementById('bee');
         const clock = document.getElementById('clock');
         const dateElement = document.getElementById('date');
+        const contentPage = document.getElementById('contentPage');
 
         function updateDate() {
             const now = new Date();
@@ -151,6 +181,13 @@
                 setInterval(updateDate, 1000);
             }, 1000);
         });
+
+        video.onended = function() {
+            // Show the content page after the video ends
+            setTimeout(function() {
+                contentPage.style.display = 'block';
+            }, 1000); // Slight delay to make it more fluid
+        };
     </script>
 </body>
 </html>
