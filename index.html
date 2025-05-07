@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>👑</title>
-    
-    <!-- Google Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Teko:wght@300..700&display=swap" rel="stylesheet" />
 
     <style>
         body {
@@ -45,8 +45,6 @@
             opacity: 0;
             transition: opacity 1.5s ease;
             pointer-events: none;
-            width: 100%;
-            height: auto;
         }
 
         #catEars {
@@ -114,75 +112,36 @@
             margin-top: 10px;
         }
 
-        /* Animation for overlay text dots */
-        @keyframes dotAnimation {
-            0% { content: "Press click to enter."; }
-            33% { content: "Press click to enter."; }
-            66% { content: "Press click to enter.."; }
-            100% { content: "Press click to enter..."; }
+        #mobile-message {
+            display: none;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            font-family: 'Teko', sans-serif;
         }
 
-        /* Styles for mobile devices */
         @media only screen and (max-width: 768px) {
-            video {
-                display: none;
+            #overlay, video, #catEars, .bee, #clock, #content {
+                display: none !important;
             }
 
-            #overlay {
-                display: none;
-            }
-
-            #content {
+            #mobile-message {
                 display: block;
-                color: white;
-                font-size: 30px;
-                font-family: 'Coming Soon', sans-serif;
-                position: absolute;
-                text-align: center;
-                z-index: 10;
-                opacity: 1;
-                transition: opacity 1.5s ease;
-            }
-
-            #pcWarning {
-                display: block;
-                color: white;
-                font-size: 24px;
-                font-family: 'Teko', sans-serif;
-                position: absolute;
-                z-index: 10;
-                text-align: center;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
             }
         }
     </style>
 </head>
 <body>
-
     <div id="overlay">Press click to enter</div>
-    <video id="myVideo" muted autoplay>
+    <video id="myVideo">
         <source src="video.mp4" type="video/mp4">
-        <source src="video.webm" type="video/webm">
-        <source src="video.ogv" type="video/ogg">
         Your browser does not support the video tag.
     </video>
 
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
-    <div id="clock">
-        <div id="date"></div>
-    </div>
-
-    <!-- Content that appears after waiting for a certain time -->
-    <div id="content">
-        <h1>Believe in Something👑</h1>
-    </div>
-
-    <!-- Mobile warning message -->
-    <div id="pcWarning">
-        Website working only on PC
-    </div>
+    <div id="clock"><div id="date"></div></div>
+    <div id="content"><h1>Believe in Something👑</h1></div>
+    <div id="mobile-message">Website working only on PC</div>
 
     <script>
         const video = document.getElementById('myVideo');
@@ -209,45 +168,40 @@
 
         function animateOverlayText() {
             let dotCount = 0;
-            dotInterval = setInterval(function() {
+            dotInterval = setInterval(() => {
                 overlay.textContent = `Press click to enter${'.'.repeat(dotCount)}`;
                 dotCount = (dotCount + 1) % 4;
-            }, 380); // Update every 0.38 seconds
+            }, 380);
         }
 
-        document.body.addEventListener('click', function() {
+        document.body.addEventListener('click', function () {
             overlay.style.display = 'none';
-            bee.style.display = 'none'; // Hide the bee when user clicks
+            bee.style.display = 'none';
 
-            setTimeout(function() {
-                video.volume = 1.0; // Max volume
+            setTimeout(() => {
+                video.volume = 1.0;
                 video.style.opacity = '1';
                 clock.style.opacity = '1';
                 video.play();
                 updateDate();
                 setInterval(updateDate, 1000);
 
-                // Start the timer after the video starts playing
-                setTimeout(function() {
-                    content.style.display = 'block'; // Show content after 22 seconds
-                    content.style.opacity = '0'; // Start with 0 opacity
-                    setTimeout(function() {
-                        content.style.opacity = '1'; // Fade in the text
-                    }, 10); // Delay fade-in slightly to ensure it works
-                    clock.style.display = 'block'; // Keep the clock visible
-                    video.pause(); // Stop the video after it finishes playing once
-                    video.style.opacity = '0'; // Make video invisible
-                    document.body.style.backgroundColor = 'black'; // Full black background
-                    clearInterval(dotInterval); // Stop dot animation
-                }, 28000); // 22000 ms = 22 seconds
-
+                setTimeout(() => {
+                    content.style.display = 'block';
+                    content.style.opacity = '0';
+                    setTimeout(() => {
+                        content.style.opacity = '1';
+                    }, 10);
+                    clock.style.display = 'block';
+                    video.pause();
+                    video.style.opacity = '0';
+                    document.body.style.backgroundColor = 'black';
+                    clearInterval(dotInterval);
+                }, 28000);
             }, 1000);
         });
 
-        // Ensure video doesn't loop
         video.loop = false;
-
-        // Start dot animation on page load
         animateOverlayText();
     </script>
 </body>
