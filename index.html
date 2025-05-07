@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>thywen</title>
+    
+    <!-- Google Fonts: Teko -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             margin: 0;
@@ -19,8 +25,8 @@
 
         #overlay {
             color: white;
-            font-size: 22.5px; /* 25% smaller text */
-            font-family: Arial, sans-serif;
+            font-size: 22.5px; /* 25% smaller than previous 30px */
+            font-family: 'Teko', sans-serif;
             position: absolute;
             z-index: 10;
         }
@@ -29,9 +35,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1.25); /* 25% bigger */
-            max-width: none;
-            max-height: none;
+            transform: translate(-50%, -50%);
+            max-width: 2400px;
+            max-height: 1350px;
             object-fit: contain;
             z-index: 5;
             display: none;
@@ -46,7 +52,7 @@
             height: 30px;
             background-color: #333;
             border-radius: 50%;
-            background-image: url('cat-ear-icon.png'); /* Replace with your GitHub-hosted image URL */
+            background-image: url('cat-ear-icon.png'); /* Replace with your cat ear image */
             background-size: cover;
             transition: transform 0.3s ease, cursor 0.3s ease;
             cursor: pointer;
@@ -54,10 +60,11 @@
 
         /* Hover effect (ears become bigger) */
         #catEars:hover {
-            transform: scale(2);
+            transform: scale(2); /* 2x bigger on hover */
             cursor: pointer;
         }
 
+        /* Cursor indicating click */
         #catEars:active {
             cursor: pointer;
         }
@@ -66,18 +73,21 @@
 <body>
 
     <div id="overlay">Press click to enter</div>
+    
     <video id="myVideo" loop>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
+    <!-- Cat ears icon -->
     <div id="catEars" onclick="window.location.href='https://www.cats.com';"></div>
 
     <script>
         const video = document.getElementById('myVideo');
         const overlay = document.getElementById('overlay');
 
-        document.body.addEventListener('click', function () {
+        // Wait for the user to click the page to start the video
+        document.body.addEventListener('click', function() {
             overlay.style.display = 'none';
             video.style.display = 'block';
             video.play();
