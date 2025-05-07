@@ -8,7 +8,7 @@
     <!-- Google Font Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Coming+Soon&family=Teko:wght@300..700&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -66,19 +66,33 @@
             cursor: pointer;
         }
 
+        .bee {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: yellow;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: fly 8s linear infinite;
+        }
+
+        @keyframes fly {
+            0% { top: 10%; left: 10%; }
+            25% { top: 30%; left: 50%; }
+            50% { top: 50%; left: 90%; }
+            75% { top: 70%; left: 50%; }
+            100% { top: 90%; left: 10%; }
+        }
+
         #content {
             display: none;
             color: white;
-            font-size: 20px;
-            font-family: 'Teko', sans-serif;
+            font-size: 30px;
+            font-family: 'Coming Soon', sans-serif;
             position: absolute;
             text-align: center;
             z-index: 10;
-        }
-
-        #content a {
-            color: #FF6347;
-            text-decoration: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
 
         #clock {
@@ -103,7 +117,7 @@
 <body>
 
     <div id="overlay">Press click to enter</div>
-    <video id="myVideo" loop>
+    <video id="myVideo">
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -113,12 +127,9 @@
         <div id="date"></div>
     </div>
 
-    <!-- Content that appears after the video ends -->
+    <!-- Content that appears after waiting for a certain time -->
     <div id="content">
-        <h1>Believe in Something</h1>
-        <p><strong>Best Song:</strong> <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">The Best Song</a></p>
-        <p><strong>Best TV Show:</strong> The Office</p>
-        <p><strong>Best Anime:</strong> Attack on Titan</p>
+        <h1>Believe in Something👑</h1>
     </div>
 
     <script>
@@ -127,6 +138,9 @@
         const clock = document.getElementById('clock');
         const dateElement = document.getElementById('date');
         const content = document.getElementById('content');
+        const bee = document.createElement('div');
+        bee.classList.add('bee');
+        document.body.appendChild(bee);
 
         function updateDate() {
             const now = new Date();
@@ -141,6 +155,7 @@
 
         document.body.addEventListener('click', function() {
             overlay.style.display = 'none';
+            bee.style.display = 'none'; // Hide the bee when user clicks
 
             setTimeout(function() {
                 video.volume = 1.0; // Max volume
@@ -149,16 +164,23 @@
                 video.play();
                 updateDate();
                 setInterval(updateDate, 1000);
+
+                // Start the timer after the video starts playing
+                setTimeout(function() {
+                    content.style.display = 'block'; // Show content after 22 seconds
+                    content.style.opacity = '0'; // Start with 0 opacity
+                    setTimeout(function() {
+                        content.style.opacity = '1'; // Fade in the text
+                    }, 10); // Delay fade-in slightly to ensure it works
+                    clock.style.display = 'block'; // Keep the clock visible
+                    video.pause(); // Stop the video after it finishes playing once
+                }, 22000); // 22000 ms = 22 seconds
+
             }, 1000);
         });
 
-        // Trigger when video ends
-        video.onended = function() {
-            content.style.display = 'block';
-            setTimeout(function() {
-                clock.style.display = 'none'; // Hide the clock after video ends
-            }, 1000); // Delay before hiding the clock, you can adjust it if needed
-        };
+        // Ensure video doesn't loop
+        video.loop = false;
     </script>
 </body>
 </html>
